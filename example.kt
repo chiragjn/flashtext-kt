@@ -2,25 +2,19 @@ import flashtext.KeywordProcessor as KeywordProcessor
 
 fun main(args: Array<String>) {
     val keywordProcessor = KeywordProcessor(caseSensitive=true)
-    println("Case Sensitive: ${keywordProcessor.caseSensitive}") 
     keywordProcessor.addKeyword("NYC", "New York")
     keywordProcessor.addKeyword("APPL", "Apple")
+    keywordProcessor.addKeywordsFromMap(
+        hashMapOf(
+            ("java" to arrayListOf("java_2e", "java programing")),
+            ("product manager" to arrayListOf("PM", "product manager"))
+        )
+    )
     println("Terms in Trie: ${keywordProcessor.size()}")
     println("Data: ${keywordProcessor.getAllKeywords().toString()}")
-    keywordProcessor.removeKeyword("NYC")
-    println("Terms in Trie: ${keywordProcessor.size()}")
-    println("Data: ${keywordProcessor.getAllKeywords().toString()}")
-    keywordProcessor.removeKeyword("APPL")
-    println("Terms in Trie: ${keywordProcessor.size()}")
-    println("Data: ${keywordProcessor.getAllKeywords().toString()}")
-    keywordProcessor.addKeyword("NYC", "New York")
-    keywordProcessor.addKeyword("APPL", "Apple")
-    println("Terms in Trie: ${keywordProcessor.size()}")
-    println("Data: ${keywordProcessor.getAllKeywords().toString()}")
-    println("${keywordProcessor.extractKeywords("Is APPL in NYC of NY ?")}")
-    keywordProcessor.addKeyword("NYC of NY", "New York's New York City")
-    println("Terms in Trie: ${keywordProcessor.size()}")
-    println("Data: ${keywordProcessor.getAllKeywords().toString()}")
-    println("Extract: ${keywordProcessor.extractKeywords("Is APPL in NYC of NY ?")}")
-    println("Replace: ${keywordProcessor.replaceKeywords("Is APPL in NYC of NY ?")}")
+
+    val text: String = "I am a PM for a java_2e platform working from APPL, NYC"
+    println("Text: ${text}")
+    println("Extract: ${keywordProcessor.extractKeywords(text)}")
+    println("Replace: ${keywordProcessor.replaceKeywords(text)}")
 }

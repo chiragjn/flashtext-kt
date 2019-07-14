@@ -46,7 +46,7 @@ class KeywordProcessor(val caseSensitive: Boolean = false) {
         return this.keywordTrieDict.getValue(word)
     }
 
-    fun addKeyword(_word: String, _cleanName: String?): Boolean {
+    fun addKeyword(_word: String, _cleanName: String? = null): Boolean {
         var status: Boolean = false
         var word: String = _word
         var cleanName: String = word
@@ -215,5 +215,20 @@ class KeywordProcessor(val caseSensitive: Boolean = false) {
         }
 
         return stringBuilder.toString()
+    }
+
+    fun addKeywordsFromMap(map: Map<String, List<String>>) {
+        // cleanName to List of keywords
+        for ((value, variants) in map) {
+            for (variant in variants) {
+                this.addKeyword(variant, value)
+            }
+        }
+    }
+
+    fun addKeywordsFromList(values: List<String>) {
+        for (value in values) {
+            this.addKeyword(value)
+        }
     }
 }
